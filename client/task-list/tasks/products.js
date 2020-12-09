@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Component, Fragment } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
 import { Card, List } from '@woocommerce/components';
 import { getAdminLink } from '@woocommerce/wc-admin-settings';
 import { recordEvent } from '@woocommerce/tracks';
@@ -10,8 +10,22 @@ import { recordEvent } from '@woocommerce/tracks';
 /**
  * Internal dependencies
  */
+import { ProductTemplateModal } from './products/product-template-modal';
 
 const subTasks = [
+	{
+		title: __( 'Start with a template (recommended)', 'woocommerce-admin' ),
+		content: __(
+			'For small stores we recommend adding products manually',
+			'woocommerce-admin'
+		),
+		before: <i className="material-icons-outlined">add_box</i>,
+		after: <i className="material-icons-outlined">chevron_right</i>,
+		onClick: () =>
+			recordEvent( 'tasklist_add_product', {
+				method: 'product_template',
+			} ),
+	},
 	{
 		title: __( 'Add manually (recommended)', 'woocommerce-admin' ),
 		content: __(
@@ -56,14 +70,14 @@ const subTasks = [
 	},
 ];
 
-export default class Products extends Component {
-	render() {
-		return (
-			<Fragment>
-				<Card className="woocommerce-task-card">
-					<List items={ subTasks } />
-				</Card>
-			</Fragment>
-		);
-	}
+export default function Products() {
+	const [ selectTemplate, setSelectTemplate ] = useState( null );
+	return (
+		<Fragment>
+			<Card className="woocommerce-task-card">
+				<List items={ subTasks } />
+			</Card>
+			<ProductTemplateModal />
+		</Fragment>
+	);
 }
