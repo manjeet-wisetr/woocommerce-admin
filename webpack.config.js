@@ -72,6 +72,7 @@ wcAdminPackages.forEach( ( name ) => {
 
 const wpAdminScripts = [
 	'marketing-coupons',
+	'navigation-opt-out',
 	'onboarding-homepage-notice',
 	'onboarding-product-notice',
 	'onboarding-product-import-notice',
