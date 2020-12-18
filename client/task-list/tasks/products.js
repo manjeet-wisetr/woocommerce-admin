@@ -93,7 +93,11 @@ export default function Products() {
 			<Card className="woocommerce-task-card">
 				<List items={ listItems } />
 			</Card>
-			{ selectTemplate ? <ProductTemplateModal /> : null }
+			{ selectTemplate ? (
+				<ProductTemplateModal
+					onClose={ () => setSelectTemplate( null ) }
+				/>
+			) : null }
 		</Fragment>
 	);
 }
